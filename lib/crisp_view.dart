@@ -102,7 +102,7 @@ class _CrispViewState extends State<CrispView> {
       withZoom: true,
       withLocalStorage: true,
       hidden: true,
-      initialChild: widget.loadingWidget!,
+      initialChild: widget.loadingWidget,
       withJavascript: true,
       resizeToAvoidBottomInset: true,
     );
