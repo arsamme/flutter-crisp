@@ -19,7 +19,7 @@ String crispEmbedUrl(String? websiteId, String? locale, String? userToken) {
 
 class CrispView extends StatefulWidget {
   final Widget? loadingWidget;
-  final AppBar? appBar;
+  final PreferredSizeWidget? appBar;
 
   @override
   _CrispViewState createState() => _CrispViewState();
@@ -98,7 +98,7 @@ class _CrispViewState extends State<CrispView> {
     return WebviewScaffold(
       url: crispEmbedUrl(crisp.websiteId, crisp.locale, crisp.userToken),
       mediaPlaybackRequiresUserGesture: false,
-      appBar: widget.appBar!,
+      appBar: widget.appBar,
       withZoom: true,
       withLocalStorage: true,
       hidden: true,
