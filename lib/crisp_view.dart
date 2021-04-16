@@ -32,14 +32,14 @@ class _CrispViewState extends State<CrispView> {
   bool browserContextChanged = false;
 
   handleAppLifecycleState() {
-    SystemChannels.lifecycle.setMessageHandler((msg) {
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
       if (msg == "AppLifecycleState.resumed" && browserContextChanged) {
         flutterWebViewPlugin.reloadUrl(
             crispEmbedUrl(crisp.websiteId, crisp.locale, crisp.userToken));
         browserContextChanged = false;
       }
       return null;
-    } as Future<String?> Function(String?)?);
+    });
   }
 
   @override
