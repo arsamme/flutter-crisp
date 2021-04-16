@@ -8,7 +8,7 @@ import 'models/main.dart';
 
 const CRISP_BASE_URL = 'https://go.crisp.chat';
 
-String crispEmbedUrl(String websiteId, String locale, String userToken) {
+String crispEmbedUrl(String? websiteId, String? locale, String? userToken) {
   String url = CRISP_BASE_URL + '/chat/embed/?website_id=$websiteId';
 
   if (notNull(locale)) url += '&locale=$locale';
@@ -18,8 +18,8 @@ String crispEmbedUrl(String websiteId, String locale, String userToken) {
 }
 
 class CrispView extends StatefulWidget {
-  final Widget loadingWidget;
-  final AppBar appBar;
+  final Widget? loadingWidget;
+  final AppBar? appBar;
 
   @override
   _CrispViewState createState() => _CrispViewState();
@@ -39,7 +39,7 @@ class _CrispViewState extends State<CrispView> {
         browserContextChanged = false;
       }
       return null;
-    });
+    } as Future<String?> Function(String?)?);
   }
 
   @override
@@ -66,18 +66,18 @@ class _CrispViewState extends State<CrispView> {
       }
 
       if (state.type == WebViewState.shouldStart) {
-        if (state.url.contains(CRISP_BASE_URL)) return;
+        if (state.url!.contains(CRISP_BASE_URL)) return;
 
         browserContextChanged = true;
         print("navigating to...${state.url}");
-        if (state.url.startsWith("mailto") ||
-            state.url.startsWith("tel") ||
-            state.url.startsWith("http") ||
-            state.url.startsWith("https")) {
+        if (state.url!.startsWith("mailto") ||
+            state.url!.startsWith("tel") ||
+            state.url!.startsWith("http") ||
+            state.url!.startsWith("https")) {
           await flutterWebViewPlugin.stopLoading();
 
-          if (await canLaunch(state.url)) {
-            await launch(state.url);
+          if (await canLaunch(state.url!)) {
+            await launch(state.url!);
             return;
           }
           print("couldn't launch $state.url");
@@ -98,11 +98,11 @@ class _CrispViewState extends State<CrispView> {
     return WebviewScaffold(
       url: crispEmbedUrl(crisp.websiteId, crisp.locale, crisp.userToken),
       mediaPlaybackRequiresUserGesture: false,
-      appBar: widget.appBar,
+      appBar: widget.appBar!,
       withZoom: true,
       withLocalStorage: true,
       hidden: true,
-      initialChild: widget.loadingWidget,
+      initialChild: widget.loadingWidget!,
       withJavascript: true,
       resizeToAvoidBottomInset: true,
     );

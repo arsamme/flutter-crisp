@@ -2,19 +2,18 @@ import 'dart:collection';
 
 import 'package:crisp/helpers.dart';
 import 'package:crisp/models/user.dart';
-import 'package:flutter/material.dart';
 
 class _CrispMain {
-  String websiteId;
-  String locale;
-  String userToken;
+  String? websiteId;
+  String? locale;
+  String? userToken;
   Queue commands = Queue<String>();
-  CrispUser user;
+  CrispUser? user;
 
   void initialize({
-    @required String websiteId,
-    String locale,
-    String userToken,
+    required String websiteId,
+    String? locale,
+    String? userToken,
   }) {
     this.websiteId = websiteId;
     this.locale = locale;
@@ -24,10 +23,10 @@ class _CrispMain {
   void register(CrispUser user) {
     if (notNull(user.verificationCode))
       execute("window.\$crisp.push([\"set\", \"user:email\", [\"" +
-        user.email +
-        "\", \"" + 
-        user.verificationCode + 
-        "\"]])");
+          user.email +
+          "\", \"" +
+          user.verificationCode! +
+          "\"]])");
     else
       execute("window.\$crisp.push([\"set\", \"user:email\", [\"" +
           user.email +
@@ -35,17 +34,17 @@ class _CrispMain {
 
     if (notNull(user.nickname))
       execute("window.\$crisp.push([\"set\", \"user:nickname\", [\"" +
-          user.nickname +
+          user.nickname! +
           "\"]])");
 
     if (notNull(user.avatar))
       execute("window.\$crisp.push([\"set\", \"user:avatar\", [\"" +
-          user.avatar +
+          user.avatar! +
           "\"]])");
 
     if (notNull(user.phone))
       execute("window.\$crisp.push([\"set\", \"user:phone\", [\"" +
-          user.phone +
+          user.phone! +
           "\"]])");
 
     this.user = user;

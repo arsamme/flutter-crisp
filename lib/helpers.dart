@@ -1,1 +1,1 @@
-bool notNull(Object o) => o != null;
+bool notNull(Object? o) => o != null;
